@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="BindingModels\" />
     <Folder Include="Enums\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Interfaces\" />
