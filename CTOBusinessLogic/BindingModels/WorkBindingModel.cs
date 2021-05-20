@@ -6,23 +6,22 @@ using System.Text;
 namespace CTOBusinessLogic.BindingModels
 {
     [DataContract]
-    public class ClientBindingModel
+    public class WorkBindingModel
     {
         [DataMember]
         public int? Id { get; set; }
         [DataMember]
-        public string FIO { get; set; }
+        public int WorkerId { get; set; }
+        public int RequestId { get; set; }
 
         [DataMember]
-        public string Email { get; set; }
+        public string WorkName { get; set; }
+        [DataMember]
+        public decimal WorkPrice { get; set; }
+        [DataMember]
+        public DateTime? DateFrom { get; set; }
 
         [DataMember]
-        public string Password { get; set; }
-
-        [DataMember]
-        public string NumberPhone { get; set; }
-
-        [DataMember]
-        public Dictionary<int, (string, int)> ClientRequest { get; set; }
+        public DateTime? DateTo { get; set; }
     }
 }

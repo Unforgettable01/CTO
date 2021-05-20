@@ -5,21 +5,16 @@ using System.Text;
 
 namespace CTOBusinessLogic.BindingModels
 {
-    [DataContract]
-    public class WorkerBindingModel
+    public class PaymentBindingModel
     {
-        [DataMember]
         public int? Id { get; set; }
         [DataMember]
-        public string FIO { get; set; }
-
+        public int WorkId { get; set; }
         [DataMember]
-        public string Email { get; set; }
-
+        public int ClientId { get; set; }
         [DataMember]
-        public string Password { get; set; }
-
+        public decimal Sum { get; set; }
         [DataMember]
-        public string NumberPhone { get; set; }
+        public DateTime? DateOfPayment { get; set; }
     }
 }
