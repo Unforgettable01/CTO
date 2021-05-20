@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CTOBusinessLogic.BindingModels;
+using CTOBusinessLogic.Interfaces;
+using CTOBusinessLogic.ViewModels;
+using CTODatabaseImplement.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +19,9 @@ namespace CTODatabaseImplement.Implements
                 return context.Costs.Include(rec => rec.Worker).Select(rec => new CostViewModel
                 {
                     Id = rec.Id,
-                    UserId = rec.UserId,
-                    ExpensesName = rec.ExpensesName,
-                    ExpensesPrice = rec.ExpensesPrice
+                    WorkerId = rec.WorkerId,
+                    CostName = rec.CostName,
+                    CostPrice = rec.CostPrice
                 })
                 .ToList();
             }
@@ -36,9 +40,9 @@ namespace CTODatabaseImplement.Implements
                 .Select(rec => new CostViewModel
                 {
                     Id = rec.Id,
-                    UserId = rec.UserId,
-                    ExpensesName = rec.ExpensesName,
-                    ExpensesPrice = rec.ExpensesPrice
+                    WorkerId = rec.WorkerId,
+                    CostName = rec.CostName,
+                    CostPrice = rec.CostPrice
 
                 })
                 .ToList();
@@ -57,10 +61,10 @@ namespace CTODatabaseImplement.Implements
                 return cost != null ?
                  new CostViewModel
                  {
-                     Id = expenses.Id,
-                     UserId = expenses.UserId,
-                     ExpensesName = expenses.ExpensesName,
-                     ExpensesPrice = expenses.ExpensesPrice
+                     Id = cost.Id,
+                     WorkerId = cost.WorkerId,
+                     CostName = cost.CostName,
+                     CostPrice = cost.CostPrice
                  } :
                  null;
             }
@@ -110,16 +114,16 @@ namespace CTODatabaseImplement.Implements
             return new CostViewModel
             {
                 Id = cost.Id,
-                UserId = cost.UserId,
-                ExpensesName = cost.ExpensesName,
-                ExpensesPrice = cost.ExpensesPrice
+                WorkerId = cost.WorkerId,
+                CostName = cost.CostName,
+                CostPrice = cost.CostPrice
             };
         }
         private Cost CreateModel(CostBindingModel model, Cost cost)
         {
-            cost.UserId = model.UserId;
-            cost.ExpensesName = model.ExpensesName;
-            cost.ExpensesPrice = model.ExpensesPrice;
+            cost.WorkerId = model.WorkerId;
+            cost.CostName = model.CostName;
+            cost.CostPrice = model.CostPrice;
             return cost;
         }
     }
