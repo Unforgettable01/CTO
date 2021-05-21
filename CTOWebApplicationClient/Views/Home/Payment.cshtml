@@ -1,0 +1,58 @@
+﻿@using CTOBusinessLogic.ViewModels
+@model List<PaymentViewModel>
+@{
+    ViewData["Title"] = "Payment";
+}
+<div class="text-center">
+    <h1 class="display-4">Оплаты</h1>
+</div>
+<div class="text-center">
+    @{
+        if (Model == null)
+        {
+            <h3 class="display-4">Авторизируйтесь</h3>
+            return;
+        }
+        <div>
+            <p>
+                <a asp-action="CreatePayment">Оплатить работу</a>
+            </p>
+        </div>
+        <table class="table" id="payment-table">
+            <thead>
+                <tr>
+                    <th>
+                        Номер
+                    </th>
+                    <th>
+                        работа в заявке
+                    </th>
+                    <th>
+                        Оплачено
+                    </th>
+                    <th>
+                        Дата оплаты
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.WorkName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sum)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateOfPayment)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table> }
+</div>
