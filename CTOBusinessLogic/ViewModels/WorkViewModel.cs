@@ -12,7 +12,7 @@ namespace CTOBusinessLogic.ViewModels
         [DataMember]
         public int Id { get; set; }
         [DataMember]
-        public int WorkekId { get; set; }
+        public int WorkerId { get; set; }
 
         [DataMember]
         [DisplayName("Название работы")]

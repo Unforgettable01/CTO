@@ -26,11 +26,11 @@ namespace CTOBusinessLogic.BusinessLogic
             return _requestStorage.GetFilteredList(model);
         }
 
-        public void CreateConference(RequestBindingModel model)
+        public void CreateRequest(RequestBindingModel model)
         {
             _requestStorage.Insert(model);
         }
-        public void UpdateConference(RequestBindingModel model)
+        public void UpdateRequest(RequestBindingModel model)
         {
             _requestStorage.Update(model);
         }
