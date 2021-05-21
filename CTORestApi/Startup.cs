@@ -1,3 +1,6 @@
+using CTOBusinessLogic.BusinessLogic;
+using CTOBusinessLogic.Interfaces;
+using CTODatabaseImplement.Implements;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,6 +28,18 @@ namespace CTORestApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IClientStorage, ClientStorage>();
+            services.AddTransient<IWorkerStorage, WorkerStorage>();
+            services.AddTransient<IWorkStorage, WorkStorage>();
+            services.AddTransient<IRequestStorage, RequestStorage>();
+            services.AddTransient<IPaymentStorage, PaymentStorage>();
+            services.AddTransient<ICostStorage, CostStorage>();
+            services.AddTransient<ClientLogic>();
+            services.AddTransient<WorkerLogic>();
+            services.AddTransient<WorkLogic>();
+            services.AddTransient<RequestLogic>();
+            services.AddTransient<PaymentLogic>();
+            services.AddTransient<CostLogic>();
             services.AddControllers();
         }
 
