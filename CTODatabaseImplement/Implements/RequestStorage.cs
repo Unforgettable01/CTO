@@ -1,4 +1,7 @@
-﻿using CTODatabaseImplement.Models;
+﻿using CTOBusinessLogic.BindingModels;
+using CTOBusinessLogic.Interfaces;
+using CTOBusinessLogic.ViewModels;
+using CTODatabaseImplement.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,7 +17,7 @@ namespace CTODatabaseImplement.Implements
             using (var context = new CTODatabase())
             {
                 return context.Requests
-                .Include(rec => rec.Worker)
+                .Include(rec => rec.Client)
                 .Select(CreateViewModel)
                 .ToList();
             }
@@ -28,8 +31,16 @@ namespace CTODatabaseImplement.Implements
             }
             using (var context = new CTODatabase())
             {
-                //////??????????????????????????////////////////////////////////////
-
+                return context.Requests
+                                 .Include(rec => rec.RequestWorks)
+                               .ThenInclude(rec => rec.Work)
+                               .Include(rec => rec.Client)
+                               .Include(rec => rec.RequestCosts)
+                               .ThenInclude(rec => rec.Cost)
+                               .Where(rec => model.DateFrom.HasValue && model.DateTo.HasValue && rec.ClientId == model.ClientId ||
+                                !model.DateFrom.HasValue && !model.DateTo.HasValue && rec.ClientId == model.ClientId)
+                               .Select(CreateViewModel)
+                               .ToList();
             }
         }
 
@@ -48,15 +59,12 @@ namespace CTODatabaseImplement.Implements
                 return request != null ?
                 new RequestViewModel
                 {
-                    Id = conference.Id,
-                    UserId = conference.UserId,
-                    ConferenceName = conference.ConferenceName,
-                    MembersCount = conference.MembersCount,
-                    ConferenceCost = conference.ConferenceCost,
-                    DateFrom = conference.DateFrom,
-                    DateTo = conference.DateTo,
-                     //  ConferencesRooms = conference.RoomsConferences
-                     //.ToDictionary(recPC => recPC.Id, recPC => (recPC.Rooms?.RoomsType, recPC.Count, recPC.Rooms?RoomsPrice))
+                    Id = request.Id,
+                    ClientId = request.ClientId,
+                    RequestName = request.RequestName,
+                    RequestCost = request.RequestCost,
+                    DateFrom = request.DateFrom,
+                    DateTo = request.DateTo,
                  } :
                 null;
             }
@@ -133,65 +141,54 @@ namespace CTODatabaseImplement.Implements
         {
             return new RequestViewModel
             {
-                Id = conference.Id,
-                UserId = conference.UserId,
-                ConferenceName = conference.ConferenceName,
-                MembersCount = conference.MembersCount,
-                ConferenceCost = conference.ConferenceCost,
-                DateFrom = conference.DateFrom,
-                DateTo = conference.DateTo,
-                //// Rooms = conference.RoomsConferences
-                // .Select(rec => RoomsStorage.CreateViewModel(rec.Rooms))
-                // .ToList(),
-                //Expenses = conference.ExpensesConference.Select(rec => ExpensesStorage.CreateViewModel(rec.Expenses)).ToList()
+                Id = request.Id,
+                ClientId = request.ClientId,
+                RequestName = request.RequestName,
+                RequestCost = request.RequestCost,
+                DateFrom = request.DateFrom,
+                DateTo = request.DateTo,
             };
         }
         private Request CreateModel(RequestBindingModel model, Request request)
         {
-            conference.UserId = model.UserId;
-            conference.ConferenceName = model.ConferenceName;
-            conference.MembersCount = model.MembersCount;
-            conference.ConferenceCost = model.ConferenceCost;
-            conference.DateFrom = model.DateFrom;
-            conference.DateTo = model.DateTo;
-            return conference;
+            request.ClientId = model.ClientId;
+            request.RequestName = model.RequestName;
+            request.RequestCost = model.RequestCost;
+            request.DateFrom = model.DateFrom;
+            request.DateTo = model.DateTo;
+            return request;
         }
 
         private Request CreateModel(RequestBindingModel model, Request request, CTODatabase context)
         {
-            conferences.UserId = model.UserId;
-            conferences.ConferenceName = model.ConferenceName;
-            conferences.MembersCount = model.MembersCount;
-            conferences.ConferenceCost = model.ConferenceCost;
-            conferences.DateFrom = model.DateFrom;
-            conferences.DateTo = model.DateTo;
+            request.ClientId = model.ClientId;
+            request.RequestName = model.RequestName;
+            request.RequestCost = model.RequestCost;
+            request.DateFrom = model.DateFrom;
+            request.DateTo = model.DateTo;
 
             if (model.Id.HasValue)
             {
-                var conferenceRoom = context.RoomsConferences.Where(rec => rec.ConferenceId == model.Id.Value).ToList();
-                // удалили те, которых нет в модели
-                context.RoomsConferences.RemoveRange(conferenceRoom.Where(rec => !model.ConferencesRooms.ContainsKey(rec.RoomsId)).ToList());
+                var requestWorks = context.RequestWorks.Where(rec => rec.RequestId == model.Id.Value).ToList();
+                context.RequestWorks.RemoveRange(requestWorks.Where(rec => !model.RequestWorks.ContainsKey(rec.WorkId)).ToList());
                 context.SaveChanges();
-                // обновили количество у существующих записей
-                foreach (var updateComponent in conferenceRoom)
-                {
-                    // updateComponent.Count = model.ConferencesRooms[updateComponent.RoomId].Item2;
-                    model.ConferencesRooms.Remove(updateComponent.RoomsId);
+                foreach (var updateComponent in requestWorks)
+                { 
+                    model.RequestWorks.Remove(updateComponent.WorkId);
                 }
                 context.SaveChanges();
             }
-            //добавили новые
-            foreach (var pc in model.ConferencesRooms)
+            foreach (var pc in model.RequestWorks)
             {
-                context.RoomsConferences.Add(new RoomConference
+                context.RequestWorks.Add(new RequestWork
                 {
-                    ConferenceId = conferences.Id,
-                    RoomsId = pc.Key,
+                    RequestId = request.Id,
+                    WorkId = pc.Key,
                 });
                 context.SaveChanges();
             }
 
-            return conferences;
+            return request;
         }
     }
 }

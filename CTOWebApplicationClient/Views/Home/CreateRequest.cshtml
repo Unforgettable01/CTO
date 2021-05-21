@@ -1,0 +1,99 @@
+﻿@using CTOBusinessLogic.ViewModels;
+@model RequestViewModel;
+@{
+    ViewData["Title"] = "CreateRequest";
+}
+<div class="text-center">
+    <h2 class="display-4">Создание заявки</h2>
+</div>
+<form method="post">
+    <div class="row">
+        <div class="col-4">Заявка:</div>
+        <div class="col-8">
+            <input type="text" name="requestname" id="requestname" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Дата начала заявки:</div>
+        <div class="col-8 form-group">
+            <input asp-for="DateFrom" id="datepickerfrom" name="datepickerfrom" class="form-control" />
+            <span asp-validation-for="DateFrom" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Дата окончания заявки:</div>
+        <div class="col-8 form-group">
+            <input asp-for="DateTo" id="datepickerto" name="datepickerto" class="form-control" />
+            <span asp-validation-for="DateTo" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="WorkId" class="control-label"></label>
+        <select asp-for="WorkId" id="work" class="form-control" multiple asp-items="ViewBag.Work"></select>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="button" value="Рассчитать стоимость" id="add" class="btn btn-secondary" /></div>
+    </div>
+    <div class="row">
+        <div class="col-4">Стоимость:</div>
+        <div class="col-8">
+            <input type="text" id="price" name="price" readonly="true" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Создать" class="btn btnprimary" /></div>
+    </div>
+</form>
+@section Scripts
+{
+
+    <script>
+        $('#add').click(function () {
+            check();
+        });
+        $(function () {
+            $('#datepickerfrom').datetimepicker({
+                dateFormat: "dd-MM-yyyy",
+                changeMonth: true
+            });
+        });
+        $(function () {
+            $('#datepickerto').datetimepicker({
+                dateFormat: "dd-MM-yyyy",
+                changeMonth: true
+            });
+        });
+
+        function check() {
+            var rooms = $('#rooms').val();
+            var price = $('#price').val();
+            var date = Math.floor((Date($('#datepickerto')).getTime() - Date($('#datepickerfrom')).getTime()) / (1000 * 60 * 60 * 24));
+            if (rooms && price == 0 ) {
+                $.ajax({
+                    method: "POST",
+                    url: "/Home/Calc",
+                    data: { rooms: rooms, date: date },
+                    success: function (result) {
+                        $("#price").val(result);
+                    }
+                });
+            };
+            if (rooms && price ) {
+                $.ajax({
+                    method: "POST",
+                    url: "/Home/Calc",
+                    data: { rooms: rooms, price: price, date: date },
+                    success: function (result) {
+                        $("#price").val(result);
+                    }
+                });
+            };
+        }
+    </script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+}

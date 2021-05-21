@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "BindCost";
+}
+<div class="text-center">
+    <h2 class="display-4">Привязка статьи затрат</h2>
+</div>
+<form method="post">
+    <div class="row">
+        <div class="col-4">Статья затрат:</div>
+        <div class="col-8">
+            <input type="text" name="expensesname" id="costname" value="@ViewBag.Cost.CostName" readonly="true"></input>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">Заявка:</div>
+        <div class="col-8">
+            <select id="request" name="request" class="form-control" asp-items="@(new SelectList(@ViewBag.Request,"Id", "RequestName"))"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Стоимость заявки:</div>
+        <div class="col-8">
+            <input type="text" name="requestcost" id="requestcost" readonly="true"></input>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Цена:</div>
+        <div class="col-8">
+            <input type="text" name="costprice" id="costprice" value="@ViewBag.Cost.CostPrice" readonly="true"></input>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Создать" class="btn-btnprimary" /></div>
+    </div>
+</form>
+<script>
+    $('#conferences').on('change', function () {
+        check();
+    });
+    function check() {
+        var request = $('#Request').val();
+        if (request) {
+            $.ajax({
+                method: "POST",
+                url: "/Home/Bind",
+                data: { request: request },
+                success: function (result) {
+                    $("#requestcost").val(result);
+                }
+            });
+        };
+    }
+
+</script>

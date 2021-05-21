@@ -1,3 +1,4 @@
+using CTOBusinessLogic.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -11,6 +12,7 @@ namespace CTOWebApplicationWorker
 {
     public class Program
     {
+         public static WorkerViewModel Worker { get; set; }
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();

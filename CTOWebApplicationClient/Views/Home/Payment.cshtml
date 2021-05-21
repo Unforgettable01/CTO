@@ -1,31 +1,37 @@
 ﻿@using CTOBusinessLogic.ViewModels
-@model List<WorkViewModel>
+@model List<PaymentViewModel>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Payment";
 }
 <div class="text-center">
-    <h1 class="display-4">Виды ремонтных работ</h1>
+    <h1 class="display-4">Оплаты</h1>
 </div>
 <div class="text-center">
-    {
+    @{
         if (Model == null)
         {
             <h3 class="display-4">Авторизируйтесь</h3>
             return;
         }
-        <p>
-            <a asp-action="CreateWork">Создать ремонтную работу</a>
-        </p>
-        <table class="table">
+        <div>
+            <p>
+                <a asp-action="CreatePayment">Оплатить работу</a>
+            </p>
+        </div>
+        <table class="table" id="payment-table">
             <thead>
                 <tr>
                     <th>
-                        Название работы
+                        Номер
                     </th>
                     <th>
-                        Цена
+                        работа в заявке
                     </th>
                     <th>
+                        Оплачено
+                    </th>
+                    <th>
+                        Дата оплаты
                     </th>
                 </tr>
             </thead>
@@ -34,18 +40,19 @@
                 {
                     <tr>
                         <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.WorkName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.WorkPrice)
+                            @Html.DisplayFor(modelItem => item.Sum)
                         </td>
                         <td>
-                            <a asp-action="UpdateWork" asp-route-id="@item.Id">Изменить</a> |
-                            <a asp-action="DeleteWork" asp-route-id="@item.Id">Удалить</a>
+                            @Html.DisplayFor(modelItem => item.DateOfPayment)
                         </td>
                     </tr>
                 }
             </tbody>
-        </table>
-    }
+        </table> }
 </div>

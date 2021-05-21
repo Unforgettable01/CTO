@@ -15,6 +15,8 @@ namespace CTOBusinessLogic.BindingModels
         [DataMember]
         public int? PaymentId { get; set; }
         [DataMember]
+        public int RequestId { get; set; }
+        [DataMember]
         public string RequestName { get; set; }
         [DataMember]
         public decimal RequestCost { get; set; }

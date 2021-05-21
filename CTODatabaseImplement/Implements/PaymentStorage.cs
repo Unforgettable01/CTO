@@ -1,4 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CTOBusinessLogic.BindingModels;
+using CTOBusinessLogic.Interfaces;
+using CTOBusinessLogic.ViewModels;
+using CTODatabaseImplement.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,9 +52,9 @@ namespace CTODatabaseImplement.Implements
                 new PaymentViewModel
                 {
                     Id = payment.Id,
-                    UserId = payment.UserId,
-                    RoomsId = payment.RoomsId,
-                    RoomsType = payment.Rooms.RoomsType,
+                    ClientId = payment.ClientId,
+                    WorkId = payment.WorkId,
+                    WorkName = payment.Work.WorkName,
                     Sum = payment.Sum,
                     DateOfPayment = payment.DateOfPayment
                 } :
@@ -83,7 +87,7 @@ namespace CTODatabaseImplement.Implements
 
         public void Delete(PaymentBindingModel model)
         {
-            using (var context = new HotelDatabase())
+            using (var context = new CTODatabase())
             {
                 Payment element = context.Payments.FirstOrDefault(rec => rec.Id == model.Id);
                 if (element != null)
@@ -102,17 +106,17 @@ namespace CTODatabaseImplement.Implements
             return new PaymentViewModel
             {
                 Id = payment.Id,
-                UserId = payment.UserId,
-                RoomsId = payment.RoomsId,
-                RoomsType = payment.Rooms.RoomsType,
+                ClientId = payment.ClientId,
+                WorkId = payment.WorkId,
+                WorkName = payment.Work.WorkName,
                 Sum = payment.Sum,
                 DateOfPayment = payment.DateOfPayment
             };
         }
         private Payment CreateModel(PaymentBindingModel model, Payment payment)
         {
-            payment.UserId = model.UserId;
-            payment.RoomsId = (int)model.RoomsId;
+            payment.ClientId = model.ClientId;
+            payment.WorkId = (int)model.WorkId;
             payment.Sum = model.Sum;
             payment.DateOfPayment = model.DateOfPayment;
             return payment;

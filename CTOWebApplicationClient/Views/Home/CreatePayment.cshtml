@@ -1,0 +1,38 @@
+﻿@model CTOBusinessLogic.ViewModels.PaymentViewModel
+@{
+    ViewData["Title"] = "CreatePayment";
+}
+<div class="text-center">
+    <h2 class="display-4">Оплата работ</h2>
+</div>
+<form asp-action="CreatePayment" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="Id" />
+    <div class="row">
+        <div class="col-4">Заявка</div>
+        <div class="col-6">
+            <select id="request" name="request" class="form-control" asp-items="@(new SelectList(@ViewBag.Request,"Id", "RequestName"))"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Работа</div>
+        <div class="col-6">
+            <select id="work" name="work" class="form-control" asp-items="@(new SelectList(@ViewBag.Work,"Id", "WorkName"))"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Сумма</div>
+        <div class="col-6">
+            <input asp-for="Sum" class="form-control" />
+            <span asp-validation-for="Sum" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-4">
+            <input type="submit" value="Оплатить" class="btn btn-primary btn-block" />
+        </div>
+        <div class="form-group col-md-4">
+            <a asp-action="Index" class="btn btn-secondary btn-block"><i class="fa fa-table"></i>Отмена</a>
+        </div>
+    </div>
+</form>

@@ -27,7 +27,7 @@ namespace CTOBusinessLogic.BusinessLogic
             return _workStorage.GetFilteredList(model);
         }
 
-        public void CreateRooms(WorkBindingModel model)
+        public void CreateWork(WorkBindingModel model)
         {
             var element = _workStorage.GetElement(new WorkBindingModel
             {
@@ -36,7 +36,7 @@ namespace CTOBusinessLogic.BusinessLogic
             _workStorage.Insert(model);
         }
 
-        public void UpdateRooms(WorkBindingModel model)
+        public void UpdateWork(WorkBindingModel model)
         {
 
             _workStorage.Update(model);
@@ -50,7 +50,7 @@ namespace CTOBusinessLogic.BusinessLogic
             });
             if (element == null)
             {
-                throw new Exception("Номер не найден");
+                throw new Exception("Работа не найдена");
             }
             _workStorage.Delete(model);
         }

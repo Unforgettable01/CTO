@@ -1,4 +1,7 @@
-﻿using CTODatabaseImplement.Models;
+﻿using CTOBusinessLogic.BindingModels;
+using CTOBusinessLogic.Interfaces;
+using CTOBusinessLogic.ViewModels;
+using CTODatabaseImplement.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -29,9 +32,9 @@ namespace CTODatabaseImplement.Implements
                 .Select(rec => new WorkViewModel
                 {
                     Id = rec.Id,
-                    UserId = rec.UserId,
-                    RoomsType = rec.RoomsType,
-                    RoomsPrice = rec.RoomsPrice
+                    WorkerId = rec.WorkerId,
+                    WorkName = rec.WorkName,
+                    WorkPrice = rec.WorkPrice
                 })
                 .ToList();
             }
@@ -94,17 +97,17 @@ namespace CTODatabaseImplement.Implements
         {
             return new WorkViewModel
             {
-                UserId = work.UserId,
                 Id = work.Id,
-                RoomsType = work.RoomsType,
-                RoomsPrice = work.RoomsPrice
+                WorkerId = work.WorkerId,
+                WorkName = work.WorkName,
+                WorkPrice = work.WorkPrice
             };
         }
         private Work CreateModel(WorkBindingModel model, Work work)
         {
-            work.UserId = model.UserId;
-            work.RoomsType = model.RoomsType;
-            work.RoomsPrice = model.RoomsPrice;
+            work.WorkerId = model.WorkerId;
+            work.WorkName = model.WorkName;
+            work.WorkPrice = model.WorkPrice;
             return work;
         }
     }

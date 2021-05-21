@@ -1,4 +1,7 @@
-﻿using CTODatabaseImplement.Models;
+﻿using CTOBusinessLogic.BindingModels;
+using CTOBusinessLogic.Interfaces;
+using CTOBusinessLogic.ViewModels;
+using CTODatabaseImplement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +18,10 @@ namespace CTODatabaseImplement.Implements
                 return context.Workers.Select(rec => new WorkerViewModel
                 {
                     Id = rec.Id,
-                    FIO = rec.Name,
+                    FIO = rec.FIO,
                     Email = rec.Email,
                     Password = rec.Password,
-                    UserRole = rec.Role,
+                    NumberPhone=rec.NumberPhone,
                 })
                 .ToList();
             }
@@ -35,8 +38,8 @@ namespace CTODatabaseImplement.Implements
                 .Select(rec => new WorkerViewModel
                 {
                     Id = rec.Id,
-                    UserName = rec.Name,
-                    UserRole = rec.Role,
+                    FIO = rec.FIO,
+                    NumberPhone = rec.NumberPhone,
                     Email = rec.Email,
                     Password = rec.Password
                 })
@@ -57,8 +60,8 @@ namespace CTODatabaseImplement.Implements
                 new WorkerViewModel
                 {
                     Id = worker.Id,
-                    UserName = worker.Name,
-                    UserRole = worker.Role,
+                    FIO = worker.FIO,
+                    NumberPhone = worker.NumberPhone,
                     Email = worker.Email,
                     Password = worker.Password
                 } :
@@ -106,10 +109,10 @@ namespace CTODatabaseImplement.Implements
             }
         }
 
-        private Client CreateModel(WorkerBindingModel model, Worker worker)
+        private Worker CreateModel(WorkerBindingModel model, Worker worker)
         {
-            worker.Name = model.UserName;
-            worker.Role = model.UserRole;
+            worker.FIO = model.FIO;
+            worker.NumberPhone = model.NumberPhone;
             worker.Email = model.Email;
             worker.Password = model.Password;
             return worker;

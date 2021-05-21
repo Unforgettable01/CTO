@@ -1,4 +1,8 @@
-﻿using System;
+﻿using CTOBusinessLogic.BindingModels;
+using CTOBusinessLogic.Interfaces;
+using CTOBusinessLogic.ViewModels;
+using CTODatabaseImplement.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,10 +18,10 @@ namespace CTODatabaseImplement.Implements
                 return context.Clients.Select(rec => new ClientViewModel
                 {
                     Id = rec.Id,
-                    FIO = rec.Name,
+                    FIO = rec.FIO,
                     Email = rec.Email,
                     Password = rec.Password,
-                    UserRole = rec.Role,
+                    NumberPhone=rec.NumberPhone
                 })
                 .ToList();
             }
@@ -34,8 +38,8 @@ namespace CTODatabaseImplement.Implements
                 .Select(rec => new ClientViewModel
                 {
                     Id = rec.Id,
-                    UserName = rec.Name,
-                    UserRole = rec.Role,
+                    FIO = rec.FIO,
+                    NumberPhone = rec.NumberPhone,
                     Email = rec.Email,
                     Password = rec.Password
                 })
@@ -56,8 +60,8 @@ namespace CTODatabaseImplement.Implements
                 new ClientViewModel
                 {
                     Id = client.Id,
-                    UserName = client.Name,
-                    UserRole = client.Role,
+                    FIO = client.FIO,
+                    NumberPhone = client.NumberPhone,
                     Email = client.Email,
                     Password = client.Password
                 } :
@@ -107,8 +111,8 @@ namespace CTODatabaseImplement.Implements
 
         private Client CreateModel(ClientBindingModel model, Client client)
         {
-            client.Name = model.UserName;
-            client.Role = model.UserRole;
+            client.FIO = model.FIO;
+            client.NumberPhone = model.NumberPhone;
             client.Email = model.Email;
             client.Password = model.Password;
             return client;
