@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Update";
+}
+<div class="text-center">
+    <h2 class="display-4">Изменение статей затрат</h2>
+</div>
+<form method="post">
+    <div class="row">
+        <div class="col-4">Затрата:</div>
+        <div class="col-8">
+            <input type="text" name="costName" id="costName" value="@ViewBag.Cost.CostName" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Цена:</div>
+        <div class="col-8"><input type="text" name="price" id="price" value="@ViewBag.Cost.CostPrice" /></div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Изменить" class="btn-btnprimary" /></div>
+    </div>
+</form>

@@ -16,6 +16,7 @@ namespace CTOWebApplicationWorker
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            APIWorker.Connect(configuration);
         }
 
         public IConfiguration Configuration { get; }

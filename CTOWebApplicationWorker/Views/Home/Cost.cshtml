@@ -1,26 +1,21 @@
 ﻿@using CTOBusinessLogic.ViewModels
-@model List<WorkViewModel>
+@model List<CostViewModel>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Cost";
 }
 <div class="text-center">
-    <h1 class="display-4">Виды ремонтных работ</h1>
+    <h1 class="display-4">Статьи затрат</h1>
 </div>
 <div class="text-center">
-    {
-        if (Model == null)
-        {
-            <h3 class="display-4">Авторизируйтесь</h3>
-            return;
-        }
+    @{
         <p>
-            <a asp-action="CreateWork">Создать ремонтную работу</a>
+            <a asp-action="CreateCost">Создать статью затрат</a>
         </p>
         <table class="table">
             <thead>
                 <tr>
                     <th>
-                        Название работы
+                        Затрата
                     </th>
                     <th>
                         Цена
@@ -34,14 +29,15 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.WorkName)
+                            @Html.DisplayFor(modelItem => item.CostName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.WorkPrice)
+                            @Html.DisplayFor(modelItem => item.CostPrice)
                         </td>
                         <td>
-                            <a asp-action="UpdateWork" asp-route-id="@item.Id">Изменить</a> |
-                            <a asp-action="DeleteWork" asp-route-id="@item.Id">Удалить</a>
+                            <a asp-action="UpdateCost" asp-route-id="@item.Id">Изменить</a> |
+                            <a asp-action="BindCost" asp-route-id="@item.Id">Привязать</a> |
+                            <a asp-action="DeleteCost" asp-route-id="@item.Id">Удалить</a>
                         </td>
                     </tr>
                 }
