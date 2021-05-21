@@ -16,5 +16,6 @@ namespace CTOBusinessLogic.BindingModels
         public decimal Sum { get; set; }
         [DataMember]
         public DateTime? DateOfPayment { get; set; }
+        public int RequestId { get; set; }
     }
 }
