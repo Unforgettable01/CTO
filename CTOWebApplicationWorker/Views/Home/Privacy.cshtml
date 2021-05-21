@@ -1,6 +1,42 @@
-﻿@{
+﻿@using CTOBusinessLogic.ViewModels
+@model WorkerViewModel
+@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
-
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="text-center">
+    <h2 class="display-4">Личные данные</h2>
+</div>
+<form method="post">
+    <div class="row">
+        <div class="col-4">Логин:</div>
+        <div class="col-8">
+            <input type="text" name="email"
+                   value="@Model.Email" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Пароль:</div>
+        <div class="col-8">
+            <input type="password" name="password"
+                   value="@Model.Password" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">ФИО:</div>
+        <div class="col-8">
+            <input type="text" name="text"
+                   value="@Model.FIO" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Номер телефона:</div>
+        <div class="col-8">
+            <input type="text" name="text"
+                   value="@Model.NumberPhone" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4"><input type="submit" value="Сохранить" class="btn-btnprimary" /></div>
+    </div>
+</form>
