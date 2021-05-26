@@ -1,7 +1,7 @@
 ﻿@using CTOBusinessLogic.ViewModels
 @model List<WorkViewModel>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Work";
 }
 <div class="text-center">
     <h1 class="display-4">Виды ремонтных работ</h1>
@@ -42,7 +42,7 @@
                             item.WorkPrice)
                         </td>
                         <td>
-                            <a asp-action="UpdateWork" asp-route-id="@item.Id">Изменить</a> |
+                            <a asp-action="UpdateWork" asp-route-id="@item.Id">Изменить</a> 
                             <a asp-action="DeleteWork" asp-route-id="@item.Id">Удалить</a>
                         </td>
                     </tr>

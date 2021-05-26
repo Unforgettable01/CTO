@@ -66,10 +66,7 @@ namespace CTORestApi.Controllers
         public void DeleteRequest(RequestBindingModel model) => _main.Delete(model);
 
         [HttpPost]
-        public void CreateWork(WorkBindingModel model) => _work.CreateWork(model);
-
-        [HttpPost]
-        public void UpdateWork(WorkBindingModel model) => _work.UpdateWork(model);
+        public void CreateorUpdateWork(WorkBindingModel model) => _work.CreateorUpdateWork(model);
 
         [HttpPost]
         public void DeleteWork(WorkBindingModel model) => _work.Delete(model);

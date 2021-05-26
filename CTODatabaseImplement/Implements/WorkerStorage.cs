@@ -112,9 +112,9 @@ namespace CTODatabaseImplement.Implements
         private Worker CreateModel(WorkerBindingModel model, Worker worker)
         {
             worker.FIO = model.FIO;
-            worker.NumberPhone = model.NumberPhone;
             worker.Email = model.Email;
             worker.Password = model.Password;
+            worker.NumberPhone = model.NumberPhone;
             return worker;
         }
     }

@@ -27,21 +27,27 @@ namespace CTOBusinessLogic.BusinessLogic
             return _workStorage.GetFilteredList(model);
         }
 
-        public void CreateWork(WorkBindingModel model)
+        public void CreateorUpdateWork(WorkBindingModel model)
         {
             var element = _workStorage.GetElement(new WorkBindingModel
             {
                 WorkName = model.WorkName
             });
-            _workStorage.Insert(model);
+            if (element != null && element.Id != model.Id)
+            {
+                throw new Exception("Уже есть работа с таким названием");
+            }
+            if (model.Id.HasValue)
+            {
+                _workStorage.Update(model);
+            }
+            else
+            {
+                _workStorage.Insert(model);
+            }
         }
 
-        public void UpdateWork(WorkBindingModel model)
-        {
-
-            _workStorage.Update(model);
-
-        }
+        
         public void Delete(WorkBindingModel model)
         {
             var element = _workStorage.GetElement(new WorkBindingModel
