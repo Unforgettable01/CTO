@@ -22,7 +22,7 @@ namespace CTORestApi.Controllers
         public WorkerViewModel Login(string email, string password) => _logic.Read(new WorkerBindingModel { Email = email, Password = password })?[0];
 
         [HttpGet]
-        public WorkerViewModel UserList() => _logic.Read(null)?[0];
+        public WorkerViewModel WorkerList() => _logic.Read(null)?[0];
 
         [HttpPost]
         public void Register(WorkerBindingModel model) => _logic.CreateOrUpdate(model);

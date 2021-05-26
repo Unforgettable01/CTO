@@ -22,7 +22,6 @@ namespace CTOBusinessLogic.BindingModels
         [DataMember]
         public string NumberPhone { get; set; }
 
-        [DataMember]
-        public Dictionary<int, (string, int)> ClientRequest { get; set; }
+
     }
 }

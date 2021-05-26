@@ -22,7 +22,10 @@ namespace CTORestApi.Controllers
         public ClientViewModel Login(string email, string password) => _logic.Read(new ClientBindingModel { Email = email, Password = password })?[0];
 
         [HttpGet]
-        public ClientViewModel UserList() => _logic.Read(null)?[0];
+        public ClientViewModel ClientList()
+        {
+            return _logic.Read(null)?[0];
+        }
 
         [HttpPost]
         public void Register(ClientBindingModel model) => _logic.CreateOrUpdate(model);

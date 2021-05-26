@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/main/getrequestlist",
+      "launchUrl": "api/main/getworkslist",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -20,7 +20,7 @@
     "CTORestApi": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/main/getrequestlist",
+      "launchUrl": "api/main/getreworkslist",
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

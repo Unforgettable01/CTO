@@ -24,7 +24,7 @@ namespace CTOWebApplicationClient.Controllers
                 return Redirect("~/Home/Enter");
             }
 
-            return View(APIClient.GetRequest<List<RequestViewModel>>($"api/main/getrequest?clientId={Program.Client.Id}"));
+            return View(APIClient.GetRequest<List<RequestViewModel>>($"api/main/getrequests?clientId={Program.Client.Id}"));
         }
 
         [HttpGet]
@@ -41,7 +41,7 @@ namespace CTOWebApplicationClient.Controllers
         {
             if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
             {
-                APIClient.PostRequest("api/user/updatedata", new ClientBindingModel
+                APIClient.PostRequest("api/client/updatedata", new ClientBindingModel
                 {
                     Id = Program.Client.Id,
                     Email = email,
@@ -75,7 +75,7 @@ namespace CTOWebApplicationClient.Controllers
         {
             if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
             {
-                Program.Client = APIClient.GetRequest<ClientViewModel>($"api/user/login?email={email}&password={password}");
+                Program.Client = APIClient.GetRequest<ClientViewModel>($"api/client/login?email={email}&password={password}");
                 if (Program.Client == null)
                 {
                     throw new Exception("Неверный email/пароль");
@@ -96,7 +96,7 @@ namespace CTOWebApplicationClient.Controllers
         {
             if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
             {
-                APIClient.PostRequest("api/user/register", new
+                APIClient.PostRequest("api/client/register", new
                 ClientBindingModel
                 {
                     FIO = fio,
@@ -110,23 +110,23 @@ namespace CTOWebApplicationClient.Controllers
             throw new Exception("Введите email и пароль");
         }
         [HttpGet]
-        public IActionResult CreateConference()
+        public IActionResult CreateRequest()
         {
-            ViewBag.Work = new MultiSelectList(APIClient.GetRequest<List<WorkViewModel>>($"api/main/GetWorkList"),
+            ViewBag.Work = new MultiSelectList(APIClient.GetRequest<List<WorkViewModel>>($"api/main/GetWorksList"),
                 "Id", "WorkName", "WorkPrice");
             return View(new RequestViewModel());
         }
 
         [HttpPost]
-        public void CreateConference([Bind("WorkId", "RequestName")] RequestViewModel model,  DateTime datepickerFrom, DateTime datepickerTo)
+        public void CreateRequest([Bind("WorkId", "RequestName")] RequestViewModel model,  DateTime datepickerFrom, DateTime datepickerTo)
         {
             List<WorkViewModel> work = model.WorkId.
-                   Select(x => APIClient.GetRequest<WorkViewModel>($"api/main/GetWork?id={x}")).ToList();
+                   Select(x => APIClient.GetRequest<WorkViewModel>($"api/main/GetWorks?id={x}")).ToList();
             if (string.IsNullOrEmpty(model.RequestName) || model.WorkId.Count == 0)
             {
                 return;
             }
-            APIClient.PostRequest("api/main/CreateRequest", new RequestBindingModel
+            APIClient.PostRequest("api/main/CreateRequests", new RequestBindingModel
             {
                 ClientId = Program.Client.Id,
                 RequestName = model.RequestName,
@@ -141,27 +141,27 @@ namespace CTOWebApplicationClient.Controllers
         [HttpPost]
         public decimal Calc(int works, decimal price, int date)
         {
-            WorkViewModel sum = APIClient.GetRequest<WorkViewModel>($"api/main/getwork?Id={works}");
+            WorkViewModel sum = APIClient.GetRequest<WorkViewModel>($"api/main/getworks?Id={works}");
             price = (price + sum.WorkPrice) * date;
             return price;
         }
         public void DeleteRequest(int id)
         {
-            APIClient.PostRequest("api/main/DeleteRequest", new RequestBindingModel { Id = id });
+            APIClient.PostRequest("api/main/DeleteRequests", new RequestBindingModel { Id = id });
             Response.Redirect("../Index");
         }
         [HttpGet]
         public IActionResult UpdateRequest(string requestname)
         {
             ViewBag.RequestName = requestname;
-            ViewBag.Work = APIClient.GetRequest<List<RequestViewModel>>("api/main/GetWorkList");
+            ViewBag.Work = APIClient.GetRequest<List<RequestViewModel>>("api/main/GetWorksList");
             return View();
         }
         [HttpPost]
         public void UpdateRequest(int id, [Bind("WorkId", "RequestName")] RequestViewModel model, DateTime datepickerFrom, DateTime datepickerTo)
         {
             List<WorkViewModel> works = model.WorkId.
-                      Select(x => APIClient.GetRequest<WorkViewModel>($"api/main/GetWork?id={x}")).ToList();
+                      Select(x => APIClient.GetRequest<WorkViewModel>($"api/main/GetWorks?id={x}")).ToList();
 
             Response.Redirect("../Index");
         }
@@ -172,12 +172,12 @@ namespace CTOWebApplicationClient.Controllers
                 return Redirect("~/Home/Enter");
             }
 
-            return View(APIClient.GetRequest<List<PaymentViewModel>>($"api/main/GetPaymentList?ClientId={Program.Client.Id}"));
+            return View(APIClient.GetRequest<List<PaymentViewModel>>($"api/main/GetPaymentsList?ClientId={Program.Client.Id}"));
         }
         [HttpGet]
         public IActionResult CreatePayment()
         {
-            ViewBag.Request = APIClient.GetRequest<List<RequestViewModel>>($"api/main/GetRequestList?ClienId={Program.Client.Id}");
+            ViewBag.Request = APIClient.GetRequest<List<RequestViewModel>>($"api/main/GetRequestsList?ClienId={Program.Client.Id}");
             ViewBag.Work = APIClient.GetRequest<List<WorkViewModel>>($"api/main/getworklist?workerId={Program.Client.Id}");
             return View();
         }
@@ -186,7 +186,7 @@ namespace CTOWebApplicationClient.Controllers
         {
             if (request != null && work != null && !string.IsNullOrEmpty(Sum))
             {
-                APIClient.PostRequest("api/main/CreatePayment", new PaymentBindingModel
+                APIClient.PostRequest("api/main/CreatePayments", new PaymentBindingModel
                 {
                     ClientId = Program.Client.Id,
                     WorkId = work.Value,

@@ -16,14 +16,11 @@ namespace CTODatabaseImplement.Implements
         {
             using (var context = new CTODatabase())
             {
-                return context.Costs.Include(rec => rec.Worker).Select(rec => new CostViewModel
-                {
-                    Id = rec.Id,
-                    WorkerId = rec.WorkerId,
-                    CostName = rec.CostName,
-                    CostPrice = rec.CostPrice
-                })
-                .ToList();
+                return context.Costs
+                    .Include(rec => rec.RequestCost)
+                    .ThenInclude(rec => rec.Request)
+                    .Select(CreateViewModel)
+                    .ToList();
             }
         }
 
@@ -121,6 +118,7 @@ namespace CTODatabaseImplement.Implements
         }
         private Cost CreateModel(CostBindingModel model, Cost cost)
         {
+            cost.Id = Convert.ToInt32(model.Id);
             cost.WorkerId = model.WorkerId;
             cost.CostName = model.CostName;
             cost.CostPrice = model.CostPrice;

@@ -26,7 +26,7 @@ namespace CTOBusinessLogic.BindingModels
 
         [DataMember]
         public DateTime? DateTo { get; set; }
-        [DataMember]
+
         public Dictionary<int, (string, decimal)> RequestWorks { get; set; }
         public Dictionary<int, (string, decimal)> RequestCosts { get; set; }
     }

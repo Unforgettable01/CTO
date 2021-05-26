@@ -26,5 +26,6 @@ namespace CTOBusinessLogic.ViewModels
         [DataMember]
         [DisplayName("Пароль")]
         public string Password { get; set; }
+
     }
 }

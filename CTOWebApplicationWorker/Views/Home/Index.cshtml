@@ -7,7 +7,7 @@
     <h1 class="display-4">Виды ремонтных работ</h1>
 </div>
 <div class="text-center">
-    {
+    @{
         if (Model == null)
         {
             <h3 class="display-4">Авторизируйтесь</h3>
@@ -34,10 +34,12 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.WorkName)
+                            @Html.DisplayFor(modelItem =>
+                            item.WorkName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.WorkPrice)
+                            @Html.DisplayFor(modelItem =>
+                            item.WorkPrice)
                         </td>
                         <td>
                             <a asp-action="UpdateWork" asp-route-id="@item.Id">Изменить</a> |

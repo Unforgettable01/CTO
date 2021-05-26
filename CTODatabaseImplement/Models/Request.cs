@@ -22,7 +22,7 @@ namespace CTODatabaseImplement.Models
 
         [ForeignKey("RequestId")]
         public virtual List<RequestWork> RequestWorks { get; set; }
-        [ForeignKey("ConferenceId")]
+        [ForeignKey("RequestId")]
         public virtual List<RequestCost> RequestCosts { get; set; }
         public virtual Client Client { get; set; }
     }

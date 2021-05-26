@@ -33,7 +33,7 @@ namespace CTOBusinessLogic.ViewModels
         [DataMember]
         [DisplayName("Дата окончания")]
         public DateTime? DateTo { get; set; }
-        [DataMember]
+
         public Dictionary<int, (string, decimal)> RequestWorks { get; set; }
         public Dictionary<int, (string, decimal)> RequestCosts { get; set; }
         public List<CostViewModel> Costs { get; set; }

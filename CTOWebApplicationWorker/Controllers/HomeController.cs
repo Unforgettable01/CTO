@@ -24,7 +24,7 @@ namespace CTOWebApplicationWorker.Controllers
                 return Redirect("~/Home/Enter");
             }
 
-            return View(APIWorker.GetRequest<List<WorkViewModel>>($"api/main/getwork?workerId={Program.Worker.Id}"));
+            return View(APIWorker.GetRequest<List<WorkViewModel>>($"api/main/getworks?workerId={Program.Worker.Id}"));
         }
         public IActionResult Cost()
         {
@@ -32,7 +32,7 @@ namespace CTOWebApplicationWorker.Controllers
             {
                 return Redirect("~/Home/Enter");
             }
-            return View(APIWorker.GetRequest<List<CostViewModel>>($"api/main/getcost?workerId={Program.Worker.Id}"));
+            return View(APIWorker.GetRequest<List<CostViewModel>>($"api/main/getcosts?workerId={Program.Worker.Id}"));
         }
         [HttpGet]
         public IActionResult Privacy()
@@ -132,14 +132,14 @@ namespace CTOWebApplicationWorker.Controllers
         [HttpGet]
         public IActionResult UpdateWork(int id)
         {
-            ViewBag.Work = APIWorker.GetRequest<WorkerViewModel>($"api/main/getwork?workId={id}");
+            ViewBag.Works = APIWorker.GetRequest<WorkerViewModel>($"api/main/getworks?workId={id}");
             return View();
         }
         [HttpPost]
         public void UpdateWork(int id, string workName, decimal workPrice)
         {
-            var Work = APIWorker.GetRequest<WorkerViewModel>($"api/main/getwork?workId={id}");
-            APIWorker.PostRequest("api/main/updatework", new WorkBindingModel
+            var Work = APIWorker.GetRequest<WorkerViewModel>($"api/main/getworks?workId={id}");
+            APIWorker.PostRequest("api/main/updateworks", new WorkBindingModel
             {
                 Id = id,
                 WorkerId = Work.WorkerId,
@@ -149,21 +149,21 @@ namespace CTOWebApplicationWorker.Controllers
 
             Response.Redirect("../Index");
         }
-        public void DeleteRooms(int id)
+        public void DeleteWork(int id)
         {
-            APIWorker.PostRequest("api/main/deletework", new WorkBindingModel { Id = id });
+            APIWorker.PostRequest("api/main/deleteworks", new WorkBindingModel { Id = id });
             Response.Redirect("../Index");
         }
 
         [HttpGet]
-        public IActionResult CreateExpenses()
+        public IActionResult CreateCost()
         {
             return View();
         }
         [HttpPost]
-        public void CreateExpenses(string costName, decimal costPrice)
+        public void CreateCost(string costName, decimal costPrice)
         {
-            APIWorker.PostRequest("api/main/createorupdatecost", new CostBindingModel
+            APIWorker.PostRequest("api/main/createorupdatecosts", new CostBindingModel
             {
                 WorkerId = Program.Worker.Id,
                 CostName = costName,
@@ -176,14 +176,14 @@ namespace CTOWebApplicationWorker.Controllers
         [HttpGet]
         public IActionResult UpdateCost(int id)
         {
-            ViewBag.Cost = APIWorker.GetRequest<CostViewModel>($"api/main/getcost?costId={id}");
+            ViewBag.Cost = APIWorker.GetRequest<CostViewModel>($"api/main/getcosts?costId={id}");
             return View();
         }
 
         [HttpPost]
         public void UpdateCost(int id, string costName, decimal costPrice)
         {
-            var Cost = APIWorker.GetRequest<WorkerViewModel>($"api/main/getecost?costId={id}");
+            var Cost = APIWorker.GetRequest<WorkerViewModel>($"api/main/getcosts?costId={id}");
             APIWorker.PostRequest("api/main/createorupdatecost", new CostBindingModel
             {
                 Id = id,
@@ -197,7 +197,7 @@ namespace CTOWebApplicationWorker.Controllers
         [HttpGet]
         public IActionResult BindCost(int id)
         {
-            ViewBag.Cost = APIWorker.GetRequest<WorkerViewModel>($"api/main/getcost?costId={id}");
+            ViewBag.Cost = APIWorker.GetRequest<WorkerViewModel>($"api/main/getcosts?costId={id}");
             ViewBag.Request = APIWorker.GetRequest<List<RequestViewModel>>($"api/main/GetRequestList");
             return View();
         }
@@ -215,7 +215,7 @@ namespace CTOWebApplicationWorker.Controllers
                 requestCost.Add(id, (costName, costPrice));
             }
 
-            APIWorker.PostRequest("api/main/updaterequest", new RequestBindingModel
+            APIWorker.PostRequest("api/main/updaterequests", new RequestBindingModel
             {
                 Id = Request.Id,
                 ClientId = Request.ClientId,
@@ -224,11 +224,11 @@ namespace CTOWebApplicationWorker.Controllers
                 RequestCosts = Request.RequestCosts,
             });
 
-            Response.Redirect("../Expenses");
+            Response.Redirect("../Cost");
         }
-        public void DeleteExpenses(int id)
+        public void DeleteCost(int id)
         {
-            APIWorker.PostRequest("api/main/deletecost", new CostBindingModel { Id = id });
+            APIWorker.PostRequest("api/main/deletecosts", new CostBindingModel { Id = id });
             Response.Redirect("../Cost");
         }
 
