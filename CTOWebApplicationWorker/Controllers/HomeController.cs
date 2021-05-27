@@ -146,6 +146,7 @@ namespace CTOWebApplicationWorker.Controllers
             APIWorker.PostRequest("api/main/createorupdatework", new WorkBindingModel
             {
                 Id=id,
+                WorkerId=Program.Worker.Id,
                 WorkName = workName,
                 WorkPrice = workPrice
             });
@@ -194,27 +195,10 @@ namespace CTOWebApplicationWorker.Controllers
 
             Response.Redirect("../Cost");
         }
-
-       
-
-        //[HttpPost]
-        //public void UpdateCost(int id, string costName, decimal costPrice)
-        //{
-        //    var Cost = APIWorker.GetRequest<WorkerViewModel>($"api/main/getcosts?costId={id}");
-        //    APIWorker.PostRequest("api/main/createorupdatecost", new CostBindingModel
-        //    {
-        //        Id = id,
-        //        WorkerId = Cost.WorkerId,
-        //        CostName = costName,
-        //        CostPrice = costPrice
-        //    });
-
-        //    Response.Redirect("../Cost");
-        //}
         [HttpGet]
         public IActionResult BindCost(int id)
         {
-            ViewBag.Cost = APIWorker.GetRequest<WorkerViewModel>($"api/main/getcost?costId={id}");
+            ViewBag.Cost = APIWorker.GetRequest<CostViewModel>($"api/main/getcost?costId={id}");
             ViewBag.Request = APIWorker.GetRequest<List<RequestViewModel>>($"api/main/GetRequestList");
             return View();
         }
