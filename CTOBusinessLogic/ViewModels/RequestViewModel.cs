@@ -37,7 +37,7 @@ namespace CTOBusinessLogic.ViewModels
         public Dictionary<int, (string, decimal)> RequestWorks { get; set; }
         public Dictionary<int, (string, decimal)> RequestCosts { get; set; }
         public List<CostViewModel> Costs { get; set; }
-        [DisplayName("Номера")]
+        [DisplayName("Работы")]
         public List<int> WorkId { get; set; }
     }
 }
