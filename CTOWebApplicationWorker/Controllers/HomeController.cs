@@ -207,7 +207,7 @@ namespace CTOWebApplicationWorker.Controllers
         {
             RequestViewModel Request = APIWorker.GetRequest<RequestViewModel>($"api/main/getrequestnl?Id={request}");
             Dictionary<int, (string, decimal)> requestCost = Request.RequestCosts;
-            if (requestCost.ContainsKey(Convert.ToInt32(id)))
+            if (requestCost.ContainsKey(Convert.ToInt32(request)))
             {
                 requestCost[id] = (costName, costPrice);
             }
@@ -222,7 +222,7 @@ namespace CTOWebApplicationWorker.Controllers
                 ClientId = Request.ClientId,
                 RequestName = Request.RequestName,
                 RequestWorks = Request.RequestWorks,
-                RequestCosts = Request.RequestCosts,
+                RequestCosts =  Request.RequestCosts
             });
 
             Response.Redirect("../Cost");
