@@ -10,7 +10,6 @@ namespace CTODatabaseImplement.Models
     {
         public int Id { get; set; }
         public int WorkerId { get; set; }
-
         public virtual Worker Worker { get; set; }
         [Required]
         public string WorkName { get; set; }

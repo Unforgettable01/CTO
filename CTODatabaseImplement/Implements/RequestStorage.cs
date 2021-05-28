@@ -62,7 +62,7 @@ namespace CTODatabaseImplement.Implements
                     Id = request.Id,
                     ClientId = request.ClientId,
                     RequestName = request.RequestName,
-                    RequestCost = request.RequestCost,
+                    RequestCost = (decimal)request.RequestCost,
                     DateFrom = request.DateFrom,
                     DateTo = request.DateTo,
                  } :
@@ -144,7 +144,7 @@ namespace CTODatabaseImplement.Implements
                 Id = request.Id,
                 ClientId = request.ClientId,
                 RequestName = request.RequestName,
-                RequestCost = request.RequestCost,
+                RequestCost = (decimal)request.RequestCost,
                 DateFrom = request.DateFrom,
                 DateTo = request.DateTo,
             };

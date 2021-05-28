@@ -12,9 +12,8 @@ namespace CTODatabaseImplement.Models
         public int ClientId { get; set; }
         [Required]
         public string RequestName { get; set; }
-
         [Required]
-        public decimal RequestCost { get; set; }
+        public decimal? RequestCost { get; set; }
         [Required]
         public DateTime? DateFrom { get; set; }
         [Required]
