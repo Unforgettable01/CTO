@@ -19,15 +19,15 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-4">Стоимость заявки:</div>
-        <div class="col-8">
-            <input type="text" name="requestcost" id="requestcost" readonly="true"></input>
-        </div>
-    </div>
-    <div class="row">
         <div class="col-4">Цена:</div>
         <div class="col-8">
             <input type="text" name="costprice" id="costprice" value="@ViewBag.Cost.CostPrice" readonly="true"></input>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">Стоимость заявки:</div>
+        <div class="col-8">
+            <input type="text" name="requestcost" id="requestcost" value="876" readonly="true"></input>
         </div>
     </div>
     <div class="row">
@@ -36,16 +36,20 @@
     </div>
 </form>
 <script>
-    $('#conferences').on('change', function () {
+    $('#request').on('change', function () {
+        check();
+    });
+    $('#costPrice').on('change', function () {
         check();
     });
     function check() {
-        var request = $('#Request').val();
-        if (request) {
+        var request = $('#Request').val(); 
+        var cost = $('#CostPrice').val(); 
+        if (request && cost) {
             $.ajax({
                 method: "POST",
                 url: "/Home/Bind",
-                data: { request: request },
+                data: { request: request ,cost:cost},
                 success: function (result) {
                     $("#requestcost").val(result);
                 }

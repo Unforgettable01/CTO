@@ -35,8 +35,7 @@ namespace CTODatabaseImplement.Implements
                                  .Include(rec => rec.RequestWorks)
                                .ThenInclude(rec => rec.Work)
                                .Include(rec => rec.Client)
-                               .Include(rec => rec.RequestCosts)
-                               .ThenInclude(rec => rec.Cost)
+                               .ThenInclude(rec => rec.Requests)
                                .Where(rec => model.DateFrom.HasValue && model.DateTo.HasValue && rec.ClientId == model.ClientId ||
                                 !model.DateFrom.HasValue && !model.DateTo.HasValue && rec.ClientId == model.ClientId)
                                .Select(CreateViewModel)
@@ -62,9 +61,6 @@ namespace CTODatabaseImplement.Implements
                     Id = request.Id,
                     ClientId = request.ClientId,
                     RequestName = request.RequestName,
-                    RequestCost = request.RequestCost,
-                    DateFrom = request.DateFrom,
-                    DateTo = request.DateTo,
                  } :
                 null;
             }
@@ -144,18 +140,14 @@ namespace CTODatabaseImplement.Implements
                 Id = request.Id,
                 ClientId = request.ClientId,
                 RequestName = request.RequestName,
-                RequestCost = request.RequestCost,
-                DateFrom = request.DateFrom,
-                DateTo = request.DateTo,
+
             };
         }
         private Request CreateModel(RequestBindingModel model, Request request)
         {
             request.ClientId = model.ClientId;
             request.RequestName = model.RequestName;
-            request.RequestCost = model.RequestCost;
-            request.DateFrom = model.DateFrom;
-            request.DateTo = model.DateTo;
+
             return request;
         }
 
@@ -163,9 +155,7 @@ namespace CTODatabaseImplement.Implements
         {
             request.ClientId = model.ClientId;
             request.RequestName = model.RequestName;
-            request.RequestCost = model.RequestCost;
-            request.DateFrom = model.DateFrom;
-            request.DateTo = model.DateTo;
+
 
             if (model.Id.HasValue)
             {

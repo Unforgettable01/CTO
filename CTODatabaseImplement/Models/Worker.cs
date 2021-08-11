@@ -19,12 +19,7 @@ namespace CTODatabaseImplement.Models
         [Required]
         public string Password { get; set; }
         [Required]
-        public string NumberPhone { get; set; }
-        [Required]
-
         [ForeignKey("WorkerId")]
-        public virtual List<Cost> Costs { get; set; }
-        [ForeignKey("WorkerId")]
-        public virtual List<Work> Works { get; set; }
+        public virtual List<Request> Requests { get; set; }
     }
 }

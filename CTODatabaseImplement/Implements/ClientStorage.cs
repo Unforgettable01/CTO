@@ -21,7 +21,6 @@ namespace CTODatabaseImplement.Implements
                     FIO = rec.FIO,
                     Email = rec.Email,
                     Password = rec.Password,
-                    NumberPhone=rec.NumberPhone
                 })
                 .ToList();
             }
@@ -39,7 +38,6 @@ namespace CTODatabaseImplement.Implements
                 {
                     Id = rec.Id,
                     FIO = rec.FIO,
-                    NumberPhone = rec.NumberPhone,
                     Email = rec.Email,
                     Password = rec.Password
                 })
@@ -61,7 +59,6 @@ namespace CTODatabaseImplement.Implements
                 {
                     Id = client.Id,
                     FIO = client.FIO,
-                    NumberPhone = client.NumberPhone,
                     Email = client.Email,
                     Password = client.Password
                 } :
@@ -112,7 +109,6 @@ namespace CTODatabaseImplement.Implements
         private Client CreateModel(ClientBindingModel model, Client client)
         {
             client.FIO = model.FIO;
-            client.NumberPhone = model.NumberPhone;
             client.Email = model.Email;
             client.Password = model.Password;
             return client;

@@ -17,8 +17,8 @@ namespace CTODatabaseImplement.Implements
             using (var context = new CTODatabase())
             {
                 return context.Costs
-                    .Include(rec => rec.RequestCost)
-                    .ThenInclude(rec => rec.Request)
+                    .Include(rec => rec.Request)
+                    .ThenInclude(rec => rec.RequestName)
                     .Select(CreateViewModel)
                     .ToList();
             }
@@ -32,20 +32,18 @@ namespace CTODatabaseImplement.Implements
             }
             using (var context = new CTODatabase())
             {
-                return context.Costs.Include(rec => rec.Worker).Where(rec => rec.Id == model.Id 
-                || rec.WorkerId == model.WorkerId)
+                return context.Costs.Include(rec => rec.Request).Where(rec => rec.Id == model.Id 
+                || rec.RequestId == model.Id)
                 .Select(rec => new CostViewModel
                 {
                     Id = rec.Id,
-                    WorkerId = rec.WorkerId,
+                    Reques = rec.WorkerId,
                     CostName = rec.CostName,
                     CostPrice = rec.CostPrice
-
                 })
                 .ToList();
             }
         }
-
         public CostViewModel GetElement(CostBindingModel model)
         {
             if (model == null)
@@ -66,7 +64,6 @@ namespace CTODatabaseImplement.Implements
                  null;
             }
         }
-
         public void Insert(CostBindingModel model)
         {
             using (var context = new CTODatabase())
@@ -106,12 +103,13 @@ namespace CTODatabaseImplement.Implements
                 }
             }
         }
+
         public static CostViewModel CreateViewModel(Cost cost)
         {
             return new CostViewModel
             {
                 Id = cost.Id,
-                WorkerId = cost.WorkerId,
+                WorkId = cost.WorkId,
                 CostName = cost.CostName,
                 CostPrice = cost.CostPrice
             };
@@ -119,7 +117,7 @@ namespace CTODatabaseImplement.Implements
         private Cost CreateModel(CostBindingModel model, Cost cost)
         {
             cost.Id = Convert.ToInt32(model.Id);
-            cost.WorkerId = model.WorkerId;
+            cost.WorkId = model.WorkId;
             cost.CostName = model.CostName;
             cost.CostPrice = model.CostPrice;
             return cost;

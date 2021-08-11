@@ -22,7 +22,6 @@ namespace CTODatabaseImplement
         public virtual DbSet<Work> Works { set; get; }
         public virtual DbSet<Payment> Payments { set; get; }
         public virtual DbSet<Cost> Costs { set; get; }
-        public virtual DbSet<RequestCost> RequestCosts { set; get; }
         public virtual DbSet<RequestWork> RequestWorks { set; get; }
     }
 }

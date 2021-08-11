@@ -12,12 +12,8 @@ namespace CTOBusinessLogic.ViewModels
         [DataMember]
         public int Id { get; set; }
         [DataMember]
-        public int WorkerId { get; set; }
-
-        [DataMember]
         [DisplayName("Название работы")]
         public string WorkName { get; set; }
-
         [DataMember]
         [DisplayName("Цена")]
         public decimal WorkPrice { get; set; }

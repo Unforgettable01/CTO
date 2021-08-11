@@ -9,16 +9,14 @@ namespace CTODatabaseImplement.Models
     public class Work
     {
         public int Id { get; set; }
-        public int WorkerId { get; set; }
-
-        public virtual Worker Worker { get; set; }
         [Required]
         public string WorkName { get; set; }
         [Required]
         public decimal WorkPrice { get; set; }
-        [ForeignKey("WorkId")]
-        public virtual List<Payment> Payments { get; set; }
+
         [ForeignKey("WorkId")]
         public virtual List<RequestWork> RequestWorks { get; set; }
+        [ForeignKey("WorkId")]
+        public virtual List<Cost> Costs { get; set; }
     }
 }

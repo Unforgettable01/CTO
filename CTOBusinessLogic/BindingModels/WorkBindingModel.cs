@@ -18,10 +18,5 @@ namespace CTOBusinessLogic.BindingModels
         public string WorkName { get; set; }
         [DataMember]
         public decimal WorkPrice { get; set; }
-        [DataMember]
-        public DateTime? DateFrom { get; set; }
-
-        [DataMember]
-        public DateTime? DateTo { get; set; }
     }
 }
