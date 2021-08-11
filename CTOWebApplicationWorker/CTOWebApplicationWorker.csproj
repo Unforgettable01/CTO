@@ -16,7 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CTOBusinessLogic\CTOBusinessLogic.csproj" />
     <ProjectReference Include="..\CTODatabaseImplement\CTODatabaseImplement.csproj" />
   </ItemGroup>
 

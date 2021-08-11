@@ -59,7 +59,6 @@ namespace CTOWebApplicationWorker.Controllers
                 Program.Worker.FIO = fio;
                 Program.Worker.Email = email;
                 Program.Worker.Password = password;
-                Program.Worker.NumberPhone = numberPhone;
                 Response.Redirect("Index");
                 return;
             }
@@ -169,7 +168,6 @@ namespace CTOWebApplicationWorker.Controllers
         {
             APIWorker.PostRequest("api/main/createorupdatecost", new CostBindingModel
             {
-                WorkerId = Program.Worker.Id,
                 CostName = costName,
                 CostPrice = costPrice
             });
@@ -188,7 +186,6 @@ namespace CTOWebApplicationWorker.Controllers
             APIWorker.PostRequest("api/main/createorupdatecost", new CostBindingModel
             {
                 Id=id,
-                WorkerId = Cost.WorkerId,
                 CostName = costName,
                 CostPrice = costPrice
             });
@@ -202,42 +199,42 @@ namespace CTOWebApplicationWorker.Controllers
             ViewBag.Request = APIWorker.GetRequest<List<RequestViewModel>>($"api/main/GetRequestList");
             return View();
         }
-        [HttpPost]
-        public void BindCost(int id, string costName, decimal costPrice, int request)
-        {
-            RequestViewModel Request = APIWorker.GetRequest<RequestViewModel>($"api/main/getrequestnl?Id={request}");
-            Dictionary<int, (string, decimal)> requestCost = Request.RequestCosts;
-            if (requestCost.ContainsKey(id))
-            {
-                requestCost[id] = (costName, costPrice);
-            }
-            else
-            {
-                requestCost.Add(id, (costName, costPrice));
-            }
+        //[HttpPost]
+        //public void BindCost(int id, string costName, decimal costPrice, int request)
+        //{
+        //    RequestViewModel Request = APIWorker.GetRequest<RequestViewModel>($"api/main/getrequestnl?Id={request}");
+        //    Dictionary<int, (string, decimal)> requestCost = Request.RequestCosts;
+        //    if (requestCost.ContainsKey(id))
+        //    {
+        //        requestCost[id] = (costName, costPrice);
+        //    }
+        //    else
+        //    {
+        //        requestCost.Add(id, (costName, costPrice));
+        //    }
 
-            APIWorker.PostRequest("api/main/updaterequest", new RequestBindingModel
-            {
-                Id = Request.Id,
-                ClientId = Request.ClientId,
-                RequestName = Request.RequestName,
-                RequestWorks = Request.RequestWorks,
-                RequestCosts =  Request.RequestCosts
-            });
+        //    APIWorker.PostRequest("api/main/updaterequest", new RequestBindingModel
+        //    {
+        //        Id = Request.Id,
+        //        ClientId = Request.ClientId,
+        //        RequestName = Request.RequestName,
+        //        RequestWorks = Request.RequestWorks,
+        //        RequestCosts =  Request.RequestCosts
+        //    });
 
-            Response.Redirect("../Cost");
-        }
-        public void DeleteCost(int id)
-        {
-            APIWorker.PostRequest("api/main/deletecost", new CostBindingModel { Id = id });
-            Response.Redirect("../Cost");
-        }
+        //    Response.Redirect("../Cost");
+        //}
+        //public void DeleteCost(int id)
+        //{
+        //    APIWorker.PostRequest("api/main/deletecost", new CostBindingModel { Id = id });
+        //    Response.Redirect("../Cost");
+        //}
 
-        [HttpPost]
-        public decimal Bind(int request)
-        {
-            RequestViewModel Request = APIWorker.GetRequest<RequestViewModel>($"api/main/getrequestnl?Id={request}");
-            return Request.RequestCost;
-        }
+        //[HttpPost]
+        //public decimal Bind(int request)
+        //{
+        //    RequestViewModel Request = APIWorker.GetRequest<RequestViewModel>($"api/main/getrequestnl?Id={request}");
+        //    return Request.RequestCost;
+        //}
     }
 }

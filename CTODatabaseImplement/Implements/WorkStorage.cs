@@ -28,11 +28,10 @@ namespace CTODatabaseImplement.Implements
             }
             using (var context = new CTODatabase())
             {
-                return context.Works.Include(rec => rec.Worker)
+                return context.Works.Include(rec => rec.WorkName)
                 .Select(rec => new WorkViewModel
                 {
                     Id = rec.Id,
-                    WorkerId = rec.WorkerId,
                     WorkName = rec.WorkName,
                     WorkPrice = rec.WorkPrice
                 })
@@ -48,8 +47,8 @@ namespace CTODatabaseImplement.Implements
             }
             using (var context = new CTODatabase())
             {
-                var work = context.Works.Include(rec => rec.Worker)
-                .FirstOrDefault(rec => rec.Id == model.Id || rec.WorkName == model.WorkName);
+                var work = context.Works.Include(rec => rec.WorkName)
+                .FirstOrDefault(rec => rec.Id == model.Id || rec.WorkPrice== model.WorkPrice);
                 return work != null ? CreateViewModel(work) : null;
             }
         }
@@ -98,14 +97,12 @@ namespace CTODatabaseImplement.Implements
             return new WorkViewModel
             {
                 Id = work.Id,
-                WorkerId = work.WorkerId,
                 WorkName = work.WorkName,
                 WorkPrice = work.WorkPrice
             };
         }
         private Work CreateModel(WorkBindingModel model, Work work)
         {
-            work.WorkerId = model.WorkerId;
             work.WorkName = model.WorkName;
             work.WorkPrice = model.WorkPrice;
             return work;

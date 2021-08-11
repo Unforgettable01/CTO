@@ -21,7 +21,6 @@ namespace CTODatabaseImplement.Implements
                     FIO = rec.FIO,
                     Email = rec.Email,
                     Password = rec.Password,
-                    NumberPhone=rec.NumberPhone,
                 })
                 .ToList();
             }
@@ -39,7 +38,6 @@ namespace CTODatabaseImplement.Implements
                 {
                     Id = rec.Id,
                     FIO = rec.FIO,
-                    NumberPhone = rec.NumberPhone,
                     Email = rec.Email,
                     Password = rec.Password
                 })
@@ -61,7 +59,6 @@ namespace CTODatabaseImplement.Implements
                 {
                     Id = worker.Id,
                     FIO = worker.FIO,
-                    NumberPhone = worker.NumberPhone,
                     Email = worker.Email,
                     Password = worker.Password
                 } :
@@ -114,7 +111,6 @@ namespace CTODatabaseImplement.Implements
             worker.FIO = model.FIO;
             worker.Email = model.Email;
             worker.Password = model.Password;
-            worker.NumberPhone = model.NumberPhone;
             return worker;
         }
     }

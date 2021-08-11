@@ -17,7 +17,7 @@ namespace CTODatabaseImplement.Implements
             using (var context = new CTODatabase())
             {
                 return context.Payments.Include(rec => rec.Client)
-                .Include(rec => rec.Work)
+                .Include(rec => rec.Request)
                 .Select(CreateViewModel)
                .ToList();
             }
@@ -32,7 +32,7 @@ namespace CTODatabaseImplement.Implements
             using (var context = new CTODatabase())
             {
                 return context.Payments.Where(rec => rec.Id == model.Id).Include(rec => rec.Client)
-                .Include(rec => rec.Work)
+                .Include(rec => rec.Request)
                 .Select(CreateViewModel)
                  .ToList();
             }
@@ -47,15 +47,15 @@ namespace CTODatabaseImplement.Implements
             using (var context = new CTODatabase())
             {
                 var payment = context.Payments.Include(rec => rec.Client)
-                   .Include(rec => rec.Work).FirstOrDefault(rec => rec.ClientId == model.ClientId);
+                   .Include(rec => rec.Request).FirstOrDefault(rec => rec.ClientId == model.ClientId);
                 return payment != null ?
                 new PaymentViewModel
                 {
                     Id = payment.Id,
                     ClientId = payment.ClientId,
-                    WorkId = payment.WorkId,
-                    WorkName = payment.Work.WorkName,
-                    Sum = payment.Sum,
+                    RwqusetId = payment.RequestId,
+                    RequestName = payment.Request.RequestName,
+                    Sum = (decimal)payment.Sum,
                     DateOfPayment = payment.DateOfPayment
                 } :
                 null;
@@ -107,16 +107,16 @@ namespace CTODatabaseImplement.Implements
             {
                 Id = payment.Id,
                 ClientId = payment.ClientId,
-                WorkId = payment.WorkId,
-                WorkName = payment.Work.WorkName,
-                Sum = payment.Sum,
+                ReuestId = payment.RequestId,
+                WorkName = payment.Request.RequestName,
+                Sum = (decimal)payment.Sum,
                 DateOfPayment = payment.DateOfPayment
             };
         }
         private Payment CreateModel(PaymentBindingModel model, Payment payment)
         {
             payment.ClientId = model.ClientId;
-            payment.WorkId = (int)model.WorkId;
+            payment.RequestId = (int)model.RequestId;
             payment.Sum = model.Sum;
             payment.DateOfPayment = model.DateOfPayment;
             return payment;

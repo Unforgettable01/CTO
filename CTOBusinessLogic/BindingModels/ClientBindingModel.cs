@@ -19,9 +19,5 @@ namespace CTOBusinessLogic.BindingModels
         [DataMember]
         public string Password { get; set; }
 
-        [DataMember]
-        public string NumberPhone { get; set; }
-
-
     }
 }

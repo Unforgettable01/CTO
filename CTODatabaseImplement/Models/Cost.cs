@@ -9,14 +9,19 @@ namespace CTODatabaseImplement.Models
     public class Cost
     {
         public int Id { get; set; }
-        public int WorkerId { get; set; }
-
-        public virtual Worker Worker { get; set; }
         [Required]
         public string CostName { get; set; }
         [Required]
         public decimal CostPrice { get; set; }
+        public int WorkId { get; set; }
+        public int RequestId { get; set; }
+
+        public virtual Work Work { get; set; }
+        public virtual Request Request { get; set; }
+
+
         [ForeignKey("CostId")]
-        public virtual List<RequestCost> RequestCost { get; set; }
+        public virtual List<Request> Requests{ get; set; }
+
     }
 }

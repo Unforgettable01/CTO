@@ -14,15 +14,9 @@ namespace CTOBusinessLogic.ViewModels
         [DataMember]
         [DisplayName("ФИО работника")]
         public string FIO { get; set; }
-
-        [DataMember]
-        [DisplayName("Номер телефона")]
-        public string NumberPhone { get; set; }
-
         [DataMember]
         [DisplayName("Логин")]
         public string Email { get; set; }
-
         [DataMember]
         [DisplayName("Пароль")]
         public string Password { get; set; }

@@ -12,15 +12,12 @@ namespace CTOBusinessLogic.ViewModels
         [DataMember]
         public int? Id { get; set; }
         [DataMember]
-        public int WorkId { get; set; }
+        public int RequestId { get; set; }
         [DataMember]
         public int ClientId { get; set; }
         [DataMember]
         [DisplayName("Сумма оплаты")]
         public decimal Sum { get; set; }
-        [DataMember]
-        [DisplayName("Работа")]
-        public string WorkName { get; set; }
         [DataMember]
         [DisplayName("Дата оплаты")]
         public DateTime? DateOfPayment { get; set; }

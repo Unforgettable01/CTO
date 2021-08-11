@@ -46,7 +46,6 @@ namespace CTOWebApplicationClient.Controllers
                     Id = Program.Client.Id,
                     Email = email,
                     Password = password,
-                    NumberPhone = Program.Client.NumberPhone
                 });
                 Program.Client.Email = email;
                 Program.Client.Password = password;
@@ -102,7 +101,6 @@ namespace CTOWebApplicationClient.Controllers
                     FIO = fio,
                     Email = email,
                     Password = password,
-                    NumberPhone = nphone
                 });
                 Response.Redirect("Enter");
                 return;
